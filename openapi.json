@@ -1,0 +1,381 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1",
+    "title": "ASD Epicor API",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "***REMOVED***"
+    }
+  ],
+  "paths": {
+    "/api/security/Token": {
+      "post": {
+        "summary": "Token operations",
+        "operationId": "GetToken",
+        "tags": [
+          "GetToken"
+        ],
+        "requestBody": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/TokenRequest"
+                    }
+                }
+            }
+        },
+        "responses": {
+          "200": {
+            "description": "Autentication information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders": {
+      "post": {
+        "summary": "Get Order Info",
+        "operationId": "getbypo",
+        "security": [
+           {
+              "bearerAuth": []
+           }
+        ],
+        "tags": [
+          "getbypo"
+        ],
+        "requestBody": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/OrdersRequest"
+                    }
+                }
+            }
+        },
+        "responses": {
+          "200": {
+            "description": "Autentication information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Orders"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/inventory": {
+      "post": {
+        "summary": "Get Inventory Info",
+        "operationId": "getbyupc",
+        "security": [
+           {
+              "bearerAuth": []
+           }
+        ],
+        "tags": [
+          "getbyupc"
+        ],
+        "requestBody": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/InventoryRequest"
+                    }
+                }
+            }
+        },
+        "responses": {
+          "200": {
+            "description": "Inventory information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Inventory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+        "Token": {
+            "type": "object",
+            "properties": {
+                "Token": {
+                    "type": "string",
+                    "example": "111111iOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEwODA2IiwibmJmIjoxNjMxNjI1MTU2LCJleHAiOjE2MzE2Mjg3NTYsImlhdCI6MTYzMTYyNTE1NiwiaXNzIjoicDIxLmFzZC1saWdodGluZy5jb206NDQ0NiJ9.8dri_BEMwsAJlGeZoy0KqsiyWlpyFPJWpRo39MDe2Fc"
+                },
+                "Type" : {
+                    "type": "string",
+                    "example": "Bearer" 
+                },
+                "Expired": {
+                    "type": "string",
+                    "example": "2021-09-14T14:12:36"
+                },
+                "Customerid": {
+                    "type": "string",
+                    "example": "10000"
+                },
+                "Issuer": {
+                    "type": "string",
+                    "example": "p21.asd-lighting.com:4446"
+                }
+            }
+        },
+        "Orders": {
+            "type": "object",
+            "properties": {
+                "OrderNo": {
+                    "type": "string",
+                    "example": "1068111"
+                },
+                "PoNo": {
+                    "type": "string",
+                    "example": "4282111"
+                },
+                "OrderStatus": {
+                    "type": "string",
+                    "example": "Completed"
+                },
+                "OrderLines": {
+                    "type": "object",
+                    "properties": {
+                        "ItemId": {
+                            "type": "string",
+                            "example": "ASD-LVP-4N3150MHE"
+                        },
+                        "QtyOrdered": {
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 1
+                        },
+                        "OrderLineStatus": {
+                            "type": "string",
+                            "example": "Completed"
+                        },
+                        "TrackingNo": {
+                            "type": "string",
+                            "example": "ABC123"
+                        },
+                        "Carrier": {
+                            "type": "string",
+                            "example": "UPC GROUND"
+                        }
+                    }
+                }
+            }
+        },
+        "Inventory": {
+            "type": "object",
+            "properties": {
+                "Item": {
+                    "type": "string",
+                    "example": "OW-LDS01-4D1030W"
+                },
+                "Price": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 9.0
+                },
+                "Currency": {
+                    "type": "string",
+                    "example": "USD"
+                }, 
+                "ItemData": {
+                    "type": "object",
+                    "properties": {
+                        "ItemDesc": {
+                            "type": "string",
+                            "example": "OSTWIN LED Disk Light 4\" 10W 700lm Dimmable 3000K White"
+                        },
+                        "UPC": {
+                            "type": "string",
+                            "example": "819951024160"
+                        },
+                        "StockingStatus": {
+                            "type": "string",
+                            "example": "Discontinued"
+                        }
+                    }
+                },
+                "Availability": {
+                    "type": "object"
+                    ,"properties": {
+                        "Location": {
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 100
+                            },
+                        "LocationState": {
+                            "type": "string",
+                            "example": "MA"
+                        },
+                        "Quantity": {
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 8
+                            },
+                        "ETA": {
+                            "type": "string",
+                            "example": ""
+                        }
+                    }
+                }
+            }
+        },
+        "OrdersRequest": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "example": "getbypo"
+                },
+                "param1": {
+                    "type": "string",
+                    "example": "4282111"
+                }
+            }
+        },
+        "InventoryRequest": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "example": "getbyupc"
+                },
+                "param1": {
+                    "type": "string",
+                    "example": "819951024160"
+                }
+            }
+        },
+        "TokenRequest": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "example": "GetToken"
+                },
+                "customerid": {
+                    "type": "string",
+                    "example": "Get it from manager"
+                },
+                "passcode": {
+                    "type": "string",
+                    "example": "Get it from manager"
+                }
+            }
+        },
+      "Error": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
