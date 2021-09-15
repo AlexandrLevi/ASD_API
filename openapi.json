@@ -20,6 +20,8 @@
         "tags": [
           "GetToken"
         ],
+        "security": [
+        {}],
         "requestBody": {
             "content": {
                 "application/json": {
