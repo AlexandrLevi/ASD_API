@@ -318,11 +318,13 @@
             "properties": {
                 "method": {
                     "type": "string",
-                    "example": "getbypo"
+                    "example": "getbypo",
+                    "description": "Name of method. We support: getbypo;"
                 },
                 "param1": {
                     "type": "string",
-                    "example": "4282111"
+                    "example": "4282111",
+                    "description": "Put purchase number for getbypo method;"
                 }
             }
         },
@@ -337,7 +339,7 @@
                 "param1": {
                     "type": "string",
                     "example": "819951024160",
-                    "description": "Put upc(12) or GTIN(14) code for getbyupc method. Put item_id for getbyitemid method"
+                    "description": "Put upc(12) or GTIN(14) code for getbyupc method; Put item_id for getbyitemid method"
                 }
             }
         },
