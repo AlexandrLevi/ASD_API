@@ -265,7 +265,7 @@
                 "Price": {
                     "type": "number",
                     "format": "float",
-                    "example": 9.0
+                    "example": 9.00
                 },
                 "Currency": {
                     "type": "string",
