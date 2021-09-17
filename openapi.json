@@ -289,8 +289,10 @@
                     }
                 },
                 "Availability": {
-                    "type": "object"
-                    ,"properties": {
+                    "type": "array",
+                    "byLoc": {
+                        "type": "object"
+                        ,"properties": {
                         "Location": {
                             "type": "integer",
                             "format": "int32",
@@ -309,7 +311,7 @@
                             "type": "string",
                             "example": ""
                         }
-                    }
+                    }   
                 }
             }
         },
