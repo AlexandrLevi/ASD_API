@@ -337,7 +337,7 @@
                 "param1": {
                     "type": "string",
                     "example": "819951024160",
-                    "description": "Put upc code for getbyupc. Put item_id for getbyitemid method"
+                    "description": "Put upc(12) or GTIN(14) code for getbyupc method. Put item_id for getbyitemid method"
                 }
             }
         },
