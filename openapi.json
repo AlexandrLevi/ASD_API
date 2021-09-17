@@ -288,11 +288,9 @@
                         }
                     }
                 },
-                "Availability": {
+                "schema": {
                     "type": "array",
-                    "byLoc": {
-                        "type": "object"
-                        ,"properties": {
+                    "properties": {
                         "Location": {
                             "type": "integer",
                             "format": "int32",
@@ -311,8 +309,9 @@
                             "type": "string",
                             "example": ""
                         }
-                    }   
-                }
+                    }
+                    
+                }   
             }
         },
         "OrdersRequest": {
