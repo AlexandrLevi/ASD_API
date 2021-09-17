@@ -228,7 +228,7 @@
                     "example": "Completed"
                 },
                 "OrderLines": {
-                    "type": "object",
+                    "type": "array",
                     "properties": {
                         "ItemId": {
                             "type": "string",
