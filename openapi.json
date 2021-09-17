@@ -21,8 +21,7 @@
           "GetToken"
         ],
         "security": [
-        {
-        },
+        {}],
         "requestBody": {
             "content": {
                 "application/json": {
@@ -137,7 +136,7 @@
            }
         ],
         "tags": [
-          "getbyupc"
+          "inventory"
         ],
         "requestBody": {
             "content": {
@@ -332,11 +331,13 @@
             "properties": {
                 "method": {
                     "type": "string",
-                    "example": "getbyupc"
+                    "example": "getbyupc",
+                    "description": "Name of method. We support: getbyupc; getbyitemid;"
                 },
                 "param1": {
                     "type": "string",
-                    "example": "819951024160"
+                    "example": "819951024160",
+                    "description": "Put upc code for getbyupc. Put item_id for getbyitemid method"
                 }
             }
         },
