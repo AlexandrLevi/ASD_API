@@ -1,0 +1,482 @@
+{
+	"info": {
+		"_postman_id": "c043a1ef-af1b-441d-a1ad-ea8a6f8da4ad",
+		"name": "ASD API",
+		"description": "# Introduction\nAPI is created to allow ASD-lighting customers get information about Inventory and Order Status\n\n# Overview\nOur API is in the developing state. We are providing information about Orders State and Inventory state.\n\n# Authentication\nWe allowing the Rearer authentication model.\n\n# Error Codes\nYou can get Bad Request, Not Found or not  \n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Get Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cd42b457-50d9-4820-8f51-722c432fa288",
+								"exec": [
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"token\", jsonData.Token);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "e2adca02-8a64-4967-a8c3-4dca8a8396cd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.asd-lighting.com:4446/Token/GetToken?customerId={{customerId}}&passCode={{passCode}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"asd-lighting",
+								"com"
+							],
+							"port": "4446",
+							"path": [
+								"Token",
+								"GetToken"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "{{customerId}}"
+								},
+								{
+									"key": "passCode",
+									"value": "{{passCode}}"
+								}
+							]
+						},
+						"description": "Get Bearer Token"
+					},
+					"response": [
+						{
+							"id": "4898d8bd-b819-4a02-a082-d5558e765542",
+							"name": "https://api.asd-lighting.com:4446/Token/GetToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://api.asd-lighting.com:4446/Token/GetToken?customerId={{customerId}}&passCode={{passCode}}",
+									"protocol": "https",
+									"host": [
+										"api",
+										"asd-lighting",
+										"com"
+									],
+									"port": "4446",
+									"path": [
+										"Token",
+										"GetToken"
+									],
+									"query": [
+										{
+											"key": "customerId",
+											"value": "{{customerId}}"
+										},
+										{
+											"key": "passCode",
+											"value": "{{passCode}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Sep 2021 10:00:44 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "343"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"Token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEwNDY4IiwibmJmIjoxNjMxMDA4ODQ0LCJleHAiOjE2MzEwMTI0NDQsImlhdCI6MTYzMTAwODg0NCwiaXNzIjoicDIxLmFzZC1saWdodGluZy5jb206NDQ0NiJ9.rMLnfaIwA4CE6zaa3aBrbUm1QMGARp5UfUf_ukOSzag\",\n    \"Type\": \"Bearer\",\n    \"Expired\": \"2021-09-07T11:00:44\",\n    \"Customerid\": \"15558\",\n    \"Issuer\": \"p21.asd-lighting.com:4446\"\n}"
+						}
+					]
+				}
+			],
+			"id": "88560faf-ff8d-45eb-9dbf-d3f87496f431"
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Get order info by purchase number",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7ecdbf3f-4b57-4706-a7d4-ce218da84561",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "2b461fe9-e400-46cb-93dc-c1703ac001e5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Method\": \"{{OrderMethod}}\",\r\n    \"OrderPo\": \"{{PoNo}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.asd-lighting.com:4446/api/Orders",
+							"protocol": "https",
+							"host": [
+								"api",
+								"asd-lighting",
+								"com"
+							],
+							"port": "4446",
+							"path": [
+								"api",
+								"Orders"
+							]
+						},
+						"description": "Orders Interface"
+					},
+					"response": [
+						{
+							"id": "ae62b4e4-fb2e-445e-be70-eb77f2c6ae2e",
+							"name": "https://api.asd-lighting.com:4446/api/Orders",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"Method\": \"{{OrderMethod}}\", \"OrderPo\": \"{{PoNo}}\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.asd-lighting.com:4446/api/Orders",
+									"protocol": "https",
+									"host": [
+										"api",
+										"asd-lighting",
+										"com"
+									],
+									"port": "4446",
+									"path": [
+										"api",
+										"Orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Sep 2021 10:08:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "355"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"OrderNo\": \"12025\",\n    \"PoNo\": \"45208313\",\n    \"OrderStatus\": \"Completed\",\n    \"OrderLines\": [\n        {\n            \"ItemId\": \"ASD-LSB2-300D50B-PRM\",\n            \"QtyOrdered\": 12,\n            \"OrderLineStatus\": \"Completed\",\n            \"TrackingNo\": \"1zry20870340552311\",\n            \"Carrier\": \"UPS GROUND\"\n        },\n        {\n            \"ItemId\": \"ASD-LSB2-240D50B-PRM\",\n            \"QtyOrdered\": 3,\n            \"OrderLineStatus\": \"Completed\",\n            \"TrackingNo\": \"1zry20870340552311\",\n            \"Carrier\": \"UPS GROUND\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"id": "a5c4d39b-ef43-478e-8417-9096af97f9d0"
+		},
+		{
+			"name": "Inventory",
+			"item": [
+				{
+					"name": "Get inventory info by upc(gtin) code",
+					"id": "fe556a95-2347-42c9-b2fb-6b79e2fd41fc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Method\": \"{{InventoryMethod}}\",\r\n    \"UPC\": \"{{UPC}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.asd-lighting.com:4446/api/Inventory",
+							"protocol": "https",
+							"host": [
+								"api",
+								"asd-lighting",
+								"com"
+							],
+							"port": "4446",
+							"path": [
+								"api",
+								"Inventory"
+							]
+						},
+						"description": "Inventory Interface"
+					},
+					"response": [
+						{
+							"id": "8a4bd27a-017c-4259-b85a-2cca9a45003f",
+							"name": "https://api.asd-lighting.com:4446/api/Inventory",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Method\": \"{{InventoryMethod}}\",\r\n    \"UPC\": \"{{UPC}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.asd-lighting.com:4446/api/Inventory",
+									"protocol": "https",
+									"host": [
+										"api",
+										"asd-lighting",
+										"com"
+									],
+									"port": "4446",
+									"path": [
+										"api",
+										"Inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Sep 2021 10:29:57 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "484"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"Item\": \"ASD-LMPJBS-8D18CC-WH\",\n    \"Price\": {\n        \"Price\": 15.884,\n        \"Currency\": \"USD\"\n    },\n    \"ItemData\": {\n        \"ItemDesc\": \"ASD LED Square Recessed Mini Panel 8\\\" 18W Dimmable CCT Adjustable 3000/4000/5000K White cETLus Energy Star (CASE QTY 12)\",\n        \"UPC\": \"810050731034\",\n        \"StockingStatus\": \"Stockable\"\n    },\n    \"Availability\": [\n        {\n            \"Location\": 100,\n            \"LocationState\": \"MA\",\n            \"Quantity\": 50,\n            \"ETA\": \"\"\n        },\n        {\n            \"Location\": 106,\n            \"LocationState\": \"TX \",\n            \"Quantity\": 33,\n            \"ETA\": \"\"\n        },\n        {\n            \"Location\": 500,\n            \"LocationState\": \"TX\",\n            \"Quantity\": 0,\n            \"ETA\": \"9/26/2021\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"id": "52607be5-e024-4f2e-ad7d-75582989a407"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bfb9e385-d85d-43d3-bef3-89a3a79cf649",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7ddce167-e707-408d-8ef6-f30840aaab15",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "c4ead6bd-36ee-4929-bcdd-d865e03d1bf0",
+			"key": "token",
+			"value": ""
+		},
+		{
+			"id": "bb01d5d8-1f13-4f5d-a14a-24e01ee7fd19",
+			"key": "customerId",
+			"value": ""
+		},
+		{
+			"id": "7ea613d9-37fd-4ad2-ad52-b6a266244cba",
+			"key": "passCode",
+			"value": ""
+		},
+		{
+			"id": "78702856-f42b-40fc-8d7b-624e9a1d1438",
+			"key": "PoNo",
+			"value": ""
+		},
+		{
+			"id": "c0396305-ed00-4f56-aeca-33547eaf12c2",
+			"key": "OrderMethod",
+			"value": ""
+		},
+		{
+			"id": "a89ba455-a0ec-4354-a266-a40d153d03f0",
+			"key": "InventoryMethod",
+			"value": ""
+		},
+		{
+			"id": "1c80b2a3-9ff1-4363-a762-268aabf57e33",
+			"key": "UPC",
+			"value": ""
+		}
+	]
+}

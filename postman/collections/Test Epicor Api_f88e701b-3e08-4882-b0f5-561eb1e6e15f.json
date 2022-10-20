@@ -1,0 +1,1296 @@
+{
+	"info": {
+		"_postman_id": "e30464bc-77f0-4fee-979c-3029bdb8006f",
+		"name": "Test Epicor Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "Get bearer Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ad04a6a-eab7-4234-a0ee-c25bceaa5153",
+								"exec": [
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"token\", jsonData.Token);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test Field Token\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.Token).to.be.string;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test Type Field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.Type).to.eql(\"Bearer\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test Field Expired\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.Expired).to.be.string;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test Field Issuer\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.Issuer).to.be.string;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "fa7a98c8-ed00-403b-9881-f45b1e023a32",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"{{GetTokenMethod}}\",\n    \"customerid\": \"{{customerid}}\",\n    \"passcode\": \"{{passcode}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/security/Token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"security",
+								"Token"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "a38f7cca-b8a2-404e-85f2-5d43cf468bea",
+							"name": "Autentication information.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{GetTokenMethod}}\",\n    \"customerid\": {{customerid}},\n    \"passcode\": {{passcode}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/security/Token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"security",
+										"Token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n \"Token\": \"in dolore laborum magna\",\n \"Type\": \"reprehenderit sint sed qui\",\n \"Expired\": \"minim\",\n \"Customerid\": \"minim adipisicing proident elit\",\n \"Issuer\": \"cillum anim\"\n}"
+						},
+						{
+							"id": "03b8e891-656f-4756-bd6b-2c0249f0e820",
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{GetTokenMethod}}\",\n    \"customerid\": \"enim sit cillum\",\n    \"passcode\": \"sunt consectetur labore\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/security/Token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"security",
+										"Token"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n \"code\": -94887815,\n \"message\": \"dolore ex cillum in\"\n}"
+						},
+						{
+							"id": "23d27ead-8912-4bcd-98c8-cc866b018125",
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{GetTokenMethod}}\",\n    \"customerid\": \"{{customerid}}\",\n    \"passcode\": \"{{passcode}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/security/Token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"security",
+										"Token"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:10:30 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"Message\": \"Not valid request parameters.\"\n}"
+						},
+						{
+							"id": "70ddf290-d055-478e-b1ae-b1f45b7109a0",
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{GetTokenMethod}}\",\n    \"customerid\": \"{{customerid}}\",\n    \"passcode\": \"{{passcode}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/security/Token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"security",
+										"Token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:12:36 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "343"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"Token\": \"111111iOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEwODA2IiwibmJmIjoxNjMxNjI1MTU2LCJleHAiOjE2MzE2Mjg3NTYsImlhdCI6MTYzMTYyNTE1NiwiaXNzIjoicDIxLmFzZC1saWdodGluZy5jb206NDQ0NiJ9.8dri_BEMwsAJlGeZoy0KqsiyWlpyFPJWpRo39MDe2Fc\",\n    \"Type\": \"Bearer\",\n    \"Expired\": \"2021-09-14T14:12:36\",\n    \"Customerid\": \"10000\",\n    \"Issuer\": \"p21.asd-lighting.com:4446\"\n}"
+						},
+						{
+							"id": "df4a2f4b-4c9b-402b-ada4-5fbdfa2a31da",
+							"name": "401",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{GetTokenMethod}}\",\n    \"customerid\": \"{{customerid}}\",\n    \"passcode\": \"{{passcode}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/security/Token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"security",
+										"Token"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:14:27 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Order Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "25ab3a10-b947-42e9-826e-7b81f43e84af",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									"    \"Orders\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"OrderNo\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                },\r",
+									"                \"PoNo\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                },\r",
+									"                \"OrderStatus\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                },\r",
+									"                \"OrderLines\": {\r",
+									"                    \"type\": \"object\",\r",
+									"                    \"properties\": {\r",
+									"                        \"ItemId\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        },\r",
+									"                        \"QtyOrdered\": {\r",
+									"                            \"type\": \"integer\",\r",
+									"                            \"format\": \"int32\"\r",
+									"                        },\r",
+									"                        \"OrderLineStatus\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        },\r",
+									"                        \"TrackingNo\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        },\r",
+									"                        \"Carrier\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        },\r",
+									"                        \"ETA\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        }\r",
+									"                    }\r",
+									"                }\r",
+									"            }\r",
+									"        }\r",
+									"};\r",
+									"\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Schema is valid', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "23826ad3-6566-4836-b1ed-bc9d7646207c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"{{OrderMethod}}\",\n    \"param1\": \"{{PoNo}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "fb48f12a-7f11-4f16-9e66-1d363daa4c65",
+							"name": "Order Information",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"Ut anim sint\",\n    \"param1\": \"dol\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n \"OrderNo\": \"aute occaecat\",\n \"PoNo\": \"reprehenderit ad\",\n \"OrderStatus\": \"mollit magna culpa dolor sit\",\n \"OrderLines\": {\n  \"ItemId\": \"aliquip Duis nostrud anim minim\",\n  \"QtyOrdered\": 89077113,\n  \"OrderLineStatus\": \"enim non velit sit\",\n  \"TrackingNo\": \"ipsum\",\n  \"Carrier\": \"tempor Ut\"\n }\n}"
+						},
+						{
+							"id": "48bfdf03-a933-4c97-889f-d98889cb9d99",
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"Ut anim sint\",\n    \"param1\": \"dol\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n \"code\": -94887815,\n \"message\": \"dolore ex cillum in\"\n}"
+						},
+						{
+							"id": "ed1b64f3-e778-430b-8da0-8c2bad2d82eb",
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{OrderMethod}}\",\n    \"param1\": \"{{PoNo}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:27:02 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"Message\": \"Unsupported method.\"\n}"
+						},
+						{
+							"id": "83e23815-b91d-4995-b291-8adff9168784",
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{OrderMethod}}\",\n    \"param1\": \"{{PoNo}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:27:32 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "184"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"OrderNo\": \"1068111\",\n    \"PoNo\": \"4282111\",\n    \"OrderStatus\": \"Completed\",\n    \"OrderLines\": [\n        {\n            \"ItemId\": \"ASD-LVP-4N3150MHE\",\n            \"QtyOrdered\": 1,\n            \"OrderLineStatus\": \"Completed\",\n            \"TrackingNo\": \"\",\n            \"Carrier\": \"\"\n        }\n    ]\n}"
+						},
+						{
+							"id": "0053ddb2-91f9-4f99-8711-13b34658449b",
+							"name": "404",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{OrderMethod}}\",\n    \"param1\": \"{{PoNo}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:33:26 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Inventory Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a5a2be5-fb1a-41d4-ae4a-e80cc5d9c4d8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									"    \"Inventory\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"Item\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                },\r",
+									"                \"Price\": {\r",
+									"                    \"type\": \"number\",\r",
+									"                    \"format\": \"float\"\r",
+									"                },\r",
+									"                \"Currency\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                }, \r",
+									"                \"ItemData\": {\r",
+									"                    \"type\": \"object\",\r",
+									"                    \"properties\": {\r",
+									"                        \"ItemDesc\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        },\r",
+									"                        \"UPC\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        },\r",
+									"                        \"StockingStatus\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        }\r",
+									"                    }\r",
+									"                },\r",
+									"                \"Availability\": {\r",
+									"                    \"type\": \"object\"\r",
+									"                    ,\"properties\": {\r",
+									"                        \"Location\": {\r",
+									"                            \"type\": \"integer\",\r",
+									"                            \"format\": \"int32\"\r",
+									"                            },\r",
+									"                        \"LocationState\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        },\r",
+									"                        \"Quantity\": {\r",
+									"                            \"type\": \"integer\",\r",
+									"                            \"format\": \"int32\"\r",
+									"                            },\r",
+									"                        \"ETA\": {\r",
+									"                            \"type\": \"string\"\r",
+									"                        }\r",
+									"                    }\r",
+									"                }\r",
+									"            }\r",
+									"        }\r",
+									"};\r",
+									"\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Schema is valid', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "064cce6f-9464-4f5f-a42d-29e2110bf18e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"{{InventoryMethod}}\",\n    \"param1\": \"{{upc}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/inventory",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "bbcc8704-8a6d-439b-906d-3abc6510c839",
+							"name": "Inventory information.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"Ut anim sint\",\n    \"param1\": \"dol\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/inventory",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n \"Item\": \"quis sint ullamco\",\n \"Price\": -71389758.34519172,\n \"Currency\": \"non dolore ad\",\n \"ItemData\": {\n  \"ItemDesc\": \"aliquip\",\n  \"UPC\": \"Ut ut in\",\n  \"StockingStatus\": \"labore sed\"\n },\n \"Availability\": {\n  \"Location\": 66523626,\n  \"LocationState\": \"proident\",\n  \"Quantity\": 11129486,\n  \"ETA\": \"enim eu ut \"\n }\n}"
+						},
+						{
+							"id": "27ecae12-e328-4068-9948-482b7ad2adb2",
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"Ut anim sint\",\n    \"param1\": \"dol\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/inventory",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n \"code\": -94887815,\n \"message\": \"dolore ex cillum in\"\n}"
+						},
+						{
+							"id": "ab061e59-1d40-49fc-a307-b2fcf77e06bd",
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{InventoryMethod}}\",\n    \"param1\": \"{{upc}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/inventory",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:38:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"Message\": \"Unsupported method.\"\n}"
+						},
+						{
+							"id": "9cd8b25a-e7e9-4a16-aee4-028b364eb972",
+							"name": "404",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{InventoryMethod}}\",\n    \"param1\": \"{{upc}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/inventory",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:38:34 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "3404adc2-06fd-42ac-a7e2-e3b1d870f138",
+							"name": "Get Inventory Info",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"{{InventoryMethod}}\",\n    \"param1\": \"{{upc}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/inventory",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/8.5"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 14:07:10 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "408"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"Item\": \"OW-LDS01-4D1030W\",\n    \"Price\": {\n        \"Price\": 9.0,\n        \"Currency\": \"USD\"\n    },\n    \"ItemData\": {\n        \"ItemDesc\": \"OSTWIN LED Disk Light 4\\\" 10W 700lm Dimmable 3000K White\",\n        \"UPC\": \"819951024160\",\n        \"StockingStatus\": \"Discontinued\"\n    },\n    \"Availability\": [\n        {\n            \"Location\": 100,\n            \"LocationState\": \"MA\",\n            \"Quantity\": 8,\n            \"ETA\": \"\"\n        },\n        {\n            \"Location\": 106,\n            \"LocationState\": \"TX \",\n            \"Quantity\": 0,\n            \"ETA\": \"\"\n        },\n        {\n            \"Location\": 500,\n            \"LocationState\": \"TX\",\n            \"Quantity\": 0,\n            \"ETA\": \"\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"id": "cf54617a-076a-4d39-943b-18e6a58a19ae"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "<Bearer Token>",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e5b71bed-d346-48d4-a7ee-fafbba920f1c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ffd7074e-9fd7-4c47-85c2-07f4518f2781",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "5b973b70-0b77-4399-a2ee-9e8687233b53",
+			"key": "baseUrl",
+			"value": "https://api.asd-lighting.com:4446"
+		},
+		{
+			"id": "f7e75293-831b-4ca7-a455-5b7080e6e1b7",
+			"key": "GetTokenMethod",
+			"value": "GetToken"
+		},
+		{
+			"id": "6058a4e2-17f8-4801-8182-0b978d978ea0",
+			"key": "customerid",
+			"value": ""
+		},
+		{
+			"id": "79ba7e05-f947-4b51-a957-1710ecc4972e",
+			"key": "passcode",
+			"value": ""
+		},
+		{
+			"id": "22958d53-fd63-4564-8036-8984009d9aae",
+			"key": "token",
+			"value": ""
+		},
+		{
+			"id": "86f490c4-7689-4bfb-8614-5ce59eb0cdbe",
+			"key": "OrderMethod",
+			"value": ""
+		},
+		{
+			"id": "29f1c8e0-55f6-4844-90ea-8844e1fdface",
+			"key": "PoNo",
+			"value": ""
+		},
+		{
+			"id": "f7468cac-3b41-4b35-99f8-bceb34ce9e18",
+			"key": "InventoryMethod",
+			"value": ""
+		},
+		{
+			"id": "6684674d-d295-4737-8269-c111e7e61556",
+			"key": "upc",
+			"value": ""
+		}
+	]
+}
