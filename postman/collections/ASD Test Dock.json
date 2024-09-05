@@ -1,0 +1,948 @@
+{
+	"info": {
+		"_postman_id": "c4a50ea9-37fa-4200-bdd1-4e7b08376a50",
+		"name": "ASD Test Dock",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "16748413-c4a50ea9-37fa-4200-bdd1-4e7b08376a50"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "Token operations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a8ff057-80b8-4cec-9a07-e82d628a3acd",
+								"exec": [
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"token\", jsonData.Token);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"var schema = {\r",
+									"    \"Token\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"Token\": {\r",
+									"                    \"type\": \"string\",\r",
+									"                },\r",
+									"                \"Type\" : {\r",
+									"                    \"type\": \"string\",\r",
+									"                },\r",
+									"                \"Expired\": {\r",
+									"                    \"type\": \"string\",\r",
+									"                },\r",
+									"                \"Customerid\": {\r",
+									"                    \"type\": \"string\",\r",
+									"                },\r",
+									"                \"Issuer\": {\r",
+									"                    \"type\": \"string\",\r",
+									"                }\r",
+									"            }\r",
+									"        }\r",
+									"};\r",
+									"\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Schema is valid', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "4018824b-9898-4968-a437-508d1b6b6e9f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"GetToken\",\n    \"customerid\": \"{{customerid}}\",\n    \"passcode\": \"{{passcode}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/security/Token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"security",
+								"Token"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "0ced647e-bcdc-422c-8b05-dd856578450c",
+							"name": "Autentication information.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"GetToken\",\n    \"customerid\": \"{{customerid}}\",\n    \"passcode\": \"{{passcode}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/security/Token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"security",
+										"Token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"Token\": \"111111iOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEwODA2IiwibmJmIjoxNjMxNjI1MTU2LCJleHAiOjE2MzE2Mjg3NTYsImlhdCI6MTYzMTYyNTE1NiwiaXNzIjoicDIxLmFzZC1saWdodGluZy5jb206NDQ0NiJ9.8dri_BEMwsAJlGeZoy0KqsiyWlpyFPJWpRo39MDe2Fc\",\n \"Type\": \"Bearer\",\n \"Expired\": \"2021-09-14T14:12:36\",\n \"Customerid\": \"10000\",\n \"Issuer\": \"p21.asd-lighting.com:4446\"\n}"
+						},
+						{
+							"id": "1129f207-47ea-4e4e-8dde-e85f603576cd",
+							"name": "Bad request.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"GetToken\",\n    \"customerid\": \"{{customerid}}\",\n    \"passcode\": \"{{passcode}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/security/Token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"security",
+										"Token"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"message\": \"do eiusmod minim veniam\"\n}"
+						},
+						{
+							"id": "f4f892dc-5c86-40b8-abf8-ae4ee619c115",
+							"name": "Not found.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"GetToken\",\n    \"customerid\": \"{{customerid}}\",\n    \"passcode\": \"{{passcode}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/security/Token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"security",
+										"Token"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"id": "cd5e277d-8d30-4610-b0ea-4fa8e444fc2f",
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"GetToken\",\n    \"customerid\": \"{{customerid}}\",\n    \"passcode\": \"{{passcode}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/security/Token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"security",
+										"Token"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"message\": \"do eiusmod minim veniam\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Order Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "063ff9b5-8d5d-43ac-bdab-d9f8ca6ef74c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"var schema = {\r",
+									"    \"Orders\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"OrderNo\": {\r",
+									"                    \"type\": \"string\",\r",
+									"                    \"example\": \"1068111\"\r",
+									"                },\r",
+									"                \"PoNo\": {\r",
+									"                    \"type\": \"string\",\r",
+									"                    \"example\": \"4282111\"\r",
+									"                },\r",
+									"                \"OrderStatus\": {\r",
+									"                    \"type\": \"string\",\r",
+									"                    \"example\": \"Completed\"\r",
+									"                },\r",
+									"                \"OrderLines\": {\r",
+									"                    \"type\": \"object\",\r",
+									"                    \"properties\": {\r",
+									"                        \"ItemId\": {\r",
+									"                            \"type\": \"string\",\r",
+									"                            \"example\": \"ASD-LVP-4N3150MHE\"\r",
+									"                        },\r",
+									"                        \"QtyOrdered\": {\r",
+									"                            \"type\": \"integer\",\r",
+									"                            \"format\": \"int32\",\r",
+									"                            \"example\": 1\r",
+									"                        },\r",
+									"                        \"OrderLineStatus\": {\r",
+									"                            \"type\": \"string\",\r",
+									"                            \"example\": \"Completed\"\r",
+									"                        },\r",
+									"                        \"TrackingNo\": {\r",
+									"                            \"type\": \"string\",\r",
+									"                            \"example\": \"ABC123\"\r",
+									"                        },\r",
+									"                        \"Carrier\": {\r",
+									"                            \"type\": \"string\",\r",
+									"                            \"example\": \"UPC GROUND\"\r",
+									"                        }\r",
+									"                    }\r",
+									"                }\r",
+									"            }\r",
+									"        }\r",
+									"};\r",
+									"\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Schema is valid', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "879a2726-3d41-415d-bae7-1bbaf35aa8e4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"getbypo\",\n    \"param1\": \"{{po}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "5fe5c47e-000e-4c77-aba8-e63be5bf850b",
+							"name": "Autentication information.",
+							"originalRequest": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"getbypo\",\n    \"param1\": \"{{po}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"OrderNo\": \"1068111\",\n \"PoNo\": \"4282111\",\n \"OrderStatus\": \"Completed\",\n \"OrderLines\": {\n  \"ItemId\": \"ASD-LVP-4N3150MHE\",\n  \"QtyOrdered\": 1,\n  \"OrderLineStatus\": \"Completed\",\n  \"TrackingNo\": \"ABC123\",\n  \"Carrier\": \"UPC GROUND\"\n }\n}"
+						},
+						{
+							"id": "dd3c26f3-8a2e-41d9-b90e-ae0dc69ccc02",
+							"name": "Bad request.",
+							"originalRequest": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"getbypo\",\n    \"param1\": \"{{po}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"message\": \"do eiusmod minim veniam\"\n}"
+						},
+						{
+							"id": "b2de3e69-ecd5-40e9-b581-0d82ce0fdf7e",
+							"name": "Not found.",
+							"originalRequest": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"getbypo\",\n    \"param1\": \"{{po}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"id": "8c6a7a5e-4cf8-484b-8c0e-1a4ca8f0f133",
+							"name": "unexpected error",
+							"originalRequest": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"getbypo\",\n    \"param1\": \"{{po}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"message\": \"do eiusmod minim veniam\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Inventory Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a16bd82e-3463-46fb-9dcf-28d35d2da066",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"var schema = {\r",
+									"    \"Inventory\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"Item\": {\r",
+									"                    \"type\": \"string\",\r",
+									"                    \"example\": \"OW-LDS01-4D1030W\"\r",
+									"                },\r",
+									"                \"Price\": {\r",
+									"                    \"type\": \"number\",\r",
+									"                    \"format\": \"float\",\r",
+									"                    \"example\": 9.0\r",
+									"                },\r",
+									"                \"Currency\": {\r",
+									"                    \"type\": \"string\",\r",
+									"                    \"example\": \"USD\"\r",
+									"                }, \r",
+									"                \"ItemData\": {\r",
+									"                    \"type\": \"object\",\r",
+									"                    \"properties\": {\r",
+									"                        \"ItemDesc\": {\r",
+									"                            \"type\": \"string\",\r",
+									"                            \"example\": \"OSTWIN LED Disk Light 4\\\" 10W 700lm Dimmable 3000K White\"\r",
+									"                        },\r",
+									"                        \"UPC\": {\r",
+									"                            \"type\": \"string\",\r",
+									"                            \"example\": \"819951024160\"\r",
+									"                        },\r",
+									"                        \"StockingStatus\": {\r",
+									"                            \"type\": \"string\",\r",
+									"                            \"example\": \"Discontinued\"\r",
+									"                        }\r",
+									"                    }\r",
+									"                },\r",
+									"                \"schema\": {\r",
+									"                    \"type\": \"array\",\r",
+									"                    \"properties\": {\r",
+									"                        \"Location\": {\r",
+									"                            \"type\": \"integer\",\r",
+									"                            \"format\": \"int32\",\r",
+									"                            \"example\": 100\r",
+									"                            },\r",
+									"                        \"LocationState\": {\r",
+									"                            \"type\": \"string\",\r",
+									"                            \"example\": \"MA\"\r",
+									"                        },\r",
+									"                        \"Quantity\": {\r",
+									"                            \"type\": \"integer\",\r",
+									"                            \"format\": \"int32\",\r",
+									"                            \"example\": 8\r",
+									"                            },\r",
+									"                        \"ETA\": {\r",
+									"                            \"type\": \"string\",\r",
+									"                            \"example\": \"\"\r",
+									"                        }\r",
+									"                    }\r",
+									"                    \r",
+									"                }   \r",
+									"            }\r",
+									"        }\r",
+									"};\r",
+									"\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Schema is valid', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "6f46b6a2-f808-4799-9267-1596e415bb07",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"getbyupc\",\n    \"param1\": \"{{upc}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/inventory",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "44d85e0d-c371-465d-b8a0-f56771fd6fcb",
+							"name": "Inventory information.",
+							"originalRequest": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"getbyupc\",\n    \"param1\": \"{{upc}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/inventory",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"Item\": \"OW-LDS01-4D1030W\",\n \"Price\": 9,\n \"Currency\": \"USD\",\n \"ItemData\": {\n  \"ItemDesc\": \"OSTWIN LED Disk Light 4\\\" 10W 700lm Dimmable 3000K White\",\n  \"UPC\": \"819951024160\",\n  \"StockingStatus\": \"Discontinued\"\n },\n \"Availability\": {\n  \"Location\": 100,\n  \"LocationState\": \"MA\",\n  \"Quantity\": 8,\n  \"ETA\": \"\"\n }\n}"
+						},
+						{
+							"id": "ddf450a1-54db-429e-a8ae-fefd7ef54de3",
+							"name": "Bad request.",
+							"originalRequest": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"getbyupc\",\n    \"param1\": \"{{upc}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/inventory",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"message\": \"do eiusmod minim veniam\"\n}"
+						},
+						{
+							"id": "dbb1fba7-7eba-4d5c-bdc2-0e8a7a66ad0c",
+							"name": "Not found.",
+							"originalRequest": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"getbyupc\",\n    \"param1\": \"{{upc}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/inventory",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"id": "38c7e5b9-b4fe-4e2d-b370-dfdcf91d613a",
+							"name": "unexpected error",
+							"originalRequest": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"method\": \"getbyupc\",\n    \"param1\": \"{{upc}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/inventory",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"message\": \"do eiusmod minim veniam\"\n}"
+						}
+					]
+				}
+			],
+			"id": "7574e136-b238-4b6a-b86e-10081192a7c5"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "<Bearer Token>",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3c02b9f3-605a-403c-898e-cd957c4f6334",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "14734a20-199f-479c-9f32-1d17782d42ff",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0ff237ff-2ab6-4009-94b5-b0f668a60229",
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"id": "4725d28a-823c-436d-b127-35a55b0f0333",
+			"key": "customerid",
+			"value": ""
+		},
+		{
+			"id": "85bc283e-fddc-445f-a50b-4c1e4bb60016",
+			"key": "passcode",
+			"value": ""
+		},
+		{
+			"id": "9efc7f9f-264d-4938-8786-a2b83d7e2914",
+			"key": "upc",
+			"value": ""
+		},
+		{
+			"id": "e0745380-420a-4f7d-9dde-fe22763866f6",
+			"key": "po",
+			"value": ""
+		},
+		{
+			"id": "39dd1be0-32de-4a00-a5ea-7b72a5abaadc",
+			"key": "token",
+			"value": ""
+		}
+	]
+}
